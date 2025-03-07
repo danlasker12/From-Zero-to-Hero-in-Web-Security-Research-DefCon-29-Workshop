@@ -4,7 +4,7 @@ services:
   mongo:
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - "0.0.0.0:27017:27017"
     volumes:
       - mongo_data:/data/db
 
@@ -16,7 +16,12 @@ services:
       - MONGO_URL=mongodb://mongo:27017/challenge
     depends_on:
       - mongo
-
+    command: >
+      bash -c "
+        echo 'Waiting for MongoDB to start...'
+        sleep 10
+        npm start
+      "
 
 volumes:
   mongo_data:
