@@ -1,5 +1,6 @@
-# Use an LTS version of Node (e.g., Node 16)
-FROM node:16
+# Node 16 is required: project depends on libxmljs@0.19.7, which uses
+# v8::AccessorSignature (removed in Node 18+). Bullseye still has live apt repos.
+FROM node:16-bullseye
 
 # Install build tools needed for compiling native modules
 RUN apt-get update && \
